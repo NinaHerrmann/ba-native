@@ -6,7 +6,7 @@ set(CMAKE_CUDA_STANDARD 20)
 set(CMAKE_CXX_STANDARD 20)
 
 if(NOT DEFINED DOGRAPHICS)
-    set(DOGRAPHICS 1)
+    set(DOGRAPHICS 0)
 endif()
 
 if(DOGRAPHICS)
@@ -31,9 +31,9 @@ set_target_properties(GasSimulation PROPERTIES
         CUDA_ARCHITECTURES "52;62;86")
 endif()
 
-add_executable(test "cuda.cu" "cuda.cuh" "test.cpp" "Timer.cpp" "Timer.h")
+add_executable(test_gpu "cuda.cu" "cuda.cuh" "test.cpp" "Timer.cpp" "Timer.h")
 
-target_link_libraries(test glm)
+target_link_libraries(test_gpu glm)
 
-set_target_properties(test PROPERTIES
+set_target_properties(test_gpu PROPERTIES
         CUDA_ARCHITECTURES "52;62;86")
