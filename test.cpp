@@ -25,6 +25,7 @@ int main(int argc, char** argv) {
     vec3<int> size {100, 100, 100};
     int gpus = 1;
     int iterations = 1;
+    int threads = 16;
     std::string importFile, exportFile;
     for (int i = 1; i < argc; i++) {
         if (argv[i][0] != '-') {
@@ -50,6 +51,9 @@ int main(int argc, char** argv) {
                 break;
             case 'e':
                 exportFile = std::string(argv[i]);
+                break;
+            case 't':
+                threads = getIntArg(argv[i]);
                 break;
             default:
                 exitWithUsage();

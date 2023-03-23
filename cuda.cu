@@ -314,12 +314,14 @@ void updateDevice() {
                 cudaMemcpyHostToDevice));
     }
 }
+void syncMPI(){
 
+}
 void simulateStep() {
     if (pause) {
         return;
     }
-
+    syncMPI();
     for (int i = 1; i < gpuStructs.size(); i++) {
         // Copy bottom padding for i - 1
         gpuErrchk(cudaMemcpyAsync(
