@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <mpi.h>
 
 #include "cuda.cuh"
 
@@ -62,20 +63,15 @@ int main(int argc, char** argv) {
 
     initSimulation(size.x, size.y, size.z, gpus, importFile);
 
+    MPI_Init(NULL, NULL);
     double time = MPI_Wtime();
 
     for (int i = 0; i < iterations; i++) {
-        //timer.start();
         simulateStep();
-        //double endTime = timer.round();
-        //totaltime += endTime - time_split;
-        //std::cout << endTime << " / " << (endTime - time_split) << std::endl;
-        //timer = Timer();
     }
     double endTime = MPI_Wtime();
 
-    std::cout << size.x << ";" << iterations << ";" << threads << ";" << gpus << ";" << (endTime-time) << ";" << std::endl;
-
+    std::cout << size.x << ";" << iterations << ";" << ";" << gpus << ";" << (endTime-time) << ";" << std::endl;
 
     if (!exportFile.empty()) {
         exportFrame(exportFile);
